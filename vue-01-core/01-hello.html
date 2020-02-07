@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>Hello,{{msg}}</div>  
+        <input type="text" v-model="msg"> 
+        <!-- v-model 勇于数据的双向绑定 -->
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: '#app', //指定被Vue管理的入口，值为选择器
+            data: {
+                msg: ''
+            }
+        })
+    </script>
+</body>
+
+</html>
