@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+       <h3>事件处理函数/方法 @ /v-on</h3>
+       <button @click="say">say{{msg}}</button>
+       <!-- $event 就可以在带参数的情况下 获取标签内的全部内容 -->
+       <button @Click="warn('薛剑文',$event)">WARN!!!!!!!!!</button>
+
+
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+
+                    msg:'hello world'
+            },
+            methods: {
+                say:function(event){
+                    //event为dom的原生事件  VUE会自动将他传入进来
+                 alert(this.msg)
+                 alert(event) //获取标签体中的内容
+                 alert(event.target.innerHTML) //获取标签体中的内容
+
+                },
+                warn:function(name){
+                       alert(name+','+event.target.innerHTML)
+                       alert(event.target.tagName)
+                }
+            },
+        })
+    </script>
+</body>
+</html>

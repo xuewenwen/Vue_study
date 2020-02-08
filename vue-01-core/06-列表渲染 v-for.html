@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+                  <h3>列表渲染 v-for</h3>
+                  <h3>1.迭代(遍历)数组</h3>
+                 <ul>
+                     <!-- e是数组emps的别名 index是下标 从0开始 -->
+                   <li v-for="(e,index) in emps" :key="index">
+                       <!-- ==注意：使用 `key` 特殊属性， 它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素== -->
+                   编号: {{index+1}}
+                   姓名: {{e.name}}
+                   工资: {{e.salary}}
+                   </li>
+
+                 </ul>
+                 <h3>1.迭代(遍历)对象</h3>
+                 <ul>
+                 <!-- in 和 of 都可以使用 -->
+                  <li v-for="(value,key,index) in person" :key="index">
+                      <!-- ==注意：使用 `key` 特殊属性， 它会基于 key 的变化重新排列元素顺序，并且会移除 key 不存在的元素== -->
+                 
+                  第{{index+1}} {{key}}={{value}}
+                  
+                  </li>
+
+                </ul>
+
+       
+         </div>
+         <script src="./node_modules/vue/dist/vue.js"></script>
+         <script>
+           var vm=  new Vue({
+                   el:'#app',
+                   data:{
+                     emps:[
+                         {name:'马云',salary:'20000'},
+                         {name:'马化腾',salary:'18000'},
+                         {name:'刘强东',salary:'12000'}
+                     ],
+                     person:
+                         {
+                                 name:'薛剑文',
+                                 age:18,
+                                 area:'淮安'
+                         }
+                     
+                   },
+                   methods: {
+                     
+                      
+                     
+                      
+                   },
+   
+             })
+         </script>
+</body>
+</html>

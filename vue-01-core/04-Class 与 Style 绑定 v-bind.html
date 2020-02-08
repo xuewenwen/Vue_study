@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <style lang='scope'>
+
+        .active{
+            color:green;
+        }
+        .delete{
+            background: green;
+        }
+        .error{
+            font-size: 50px;
+        }
+   
+
+    </style>
+  <div id="app">
+    <h3>Class 与 Style 绑定 v-bind   v-bind:class或:class</h3>
+    <p :class="isActive">字符串表达式</p>
+    <p :class="{active:isOk}">对象表达式</p>
+    <p :class="[ 'active' ,'error']">数组表达式</p>
+    <h3>Style绑定</h3>
+    <p :style="{color:isRed,fontSize:fontsize+'px'}">我是红色吗</p>
+
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+
+      new Vue({
+           el:'#app',
+           data:{
+                 isActive:'active',
+                 isOk:true,
+                 fontsize:100,
+                 isRed:'red',
+           }
+
+
+      })
+  </script>
+
+</body>
+</html>
