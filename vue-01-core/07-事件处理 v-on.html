@@ -12,9 +12,33 @@
        <button @click="say">say{{msg}}</button>
        <!-- $event 就可以在带参数的情况下 获取标签内的全部内容 -->
        <button @Click="warn('薛剑文',$event)">WARN!!!!!!!!!</button>
+       
+       <h3>2.事件修饰符</h3>
+       <!-- 2.1 防止单击事件继续传播 -->
+       <div @click="do1">
+        <button @click="do2">单击事件继续传播</button>
 
+       </div>
 
+       <div @click="do1">
+           <!-- .stop代表在这个地方停了 -->
+        <button @click.stop="do2">阻止单击事件继续传播</button>
+
+       </div>
+
+       <!-- 2.2 阻止事件的默认行为 -->
+       <a href="http://baidu.com" @click.prevent="do3">百度</a>
+      
+      <!-- 2.3 只会触发一次 -->
+      <button @click.once="do4">只会触发一次</button>
+   
+     <!-- 2.4 按键修饰符 -->
+     <input type="text" @keyup.enter="do5">
+   
     </div>
+     
+
+
     <script src="./node_modules/vue/dist/vue.js"></script>
     <script>
         new Vue({
@@ -34,7 +58,24 @@
                 warn:function(name){
                        alert(name+','+event.target.innerHTML)
                        alert(event.target.tagName)
-                }
+                },
+
+                do1:function(){
+                alert('do1')
+                },
+                do2:function(){
+                alert('do2')
+                },
+                do3:function(){
+                alert('这个a标签的默认行为已经被阻止')
+                },
+                do4:function(){
+                alert('这个按钮只能点一次') //在项目中表单只会 上传一次
+                },
+                do5:function(){
+                alert('按回车显示') 
+                },
+
             },
         })
     </script>
