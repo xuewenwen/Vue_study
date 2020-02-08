@@ -1,0 +1,61 @@
+<body>
+      <div id="app">
+        数学成绩<input type="text" v-model="yuwen">
+        英语成绩 <input type="text" v-model="shuxue"> <br />
+        <!-- v-model也可以调用函数，不要少了() -->
+        总成绩(方法实现)<input type="text" v-model="zongfen()"><br />
+        总成绩(计算属性实现)<input type="text" v-model="zongfen2"><br />
+        总成绩(计算属性实现-双向)<input type="text" v-model="zongfen3"><br />
+        <!-- 计算属性是属性 后面不能加() -->
+          </div>
+      
+    <script src="./node_modules/vue/dist/vue.js"></script>
+      
+    <script type="text/javascript">
+
+    //函数只支持单向
+    //计算属性中需要制定set函数可以双向
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                yuwen: 80,
+                shuxue: 91,
+                total:0
+            },
+
+            methods: {
+                    
+                    zongfen: function () {
+                    console.log('函数被调用了')
+                    return (this.yuwen - 0) + (this.shuxue - 0)
+                },
+               
+            },
+            computed: { //计算属性    有缓存 如果计算属性体内的属性值没有发生改变就不会发生改变
+                  zongfen2:function(){
+                    console.log('计算属性实现了')
+                    return (this.yuwen - 0) + (this.shuxue - 0)
+                  },
+               //它是对象
+                  zongfen3:{
+                     //获取数据
+                    get:function(){
+
+                        console.log('计算属性-双向 实现了')
+                    return (this.yuwen - 0) + (this.shuxue - 0)
+                    },
+                    //设置数据
+                    set:function(total){
+                          
+                        var avg=total/2
+                        this.yuwen =avg
+                        this.shuxue=avg
+                    }
+                  }
+
+
+            }
+           
+        })
+    </script>
+</body>
