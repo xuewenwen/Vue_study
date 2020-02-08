@@ -1,12 +1,15 @@
 <body>
       <div id="app">
-        数学成绩<input type="text" v-model="yuwen">
-        英语成绩 <input type="text" v-model="shuxue"> <br />
+        数学成绩<input type="text" v-model="shuxue">
+        英语成绩 <input type="text" v-model="yuwen"> <br />
         <!-- v-model也可以调用函数，不要少了() -->
         总成绩(方法实现)<input type="text" v-model="zongfen()"><br />
         总成绩(计算属性实现)<input type="text" v-model="zongfen2"><br />
-        总成绩(计算属性实现-双向)<input type="text" v-model="zongfen3"><br />
         <!-- 计算属性是属性 后面不能加() -->
+        总成绩(计算属性实现-双向)<input type="text" v-model="zongfen3"><br />
+        <!-- 当属性数据发生变化时,对应属性的回调函数会自动调用, 在函数内部进行计算
+              通过  watch 选项 或者 vm 实例的  $watch() 来监听指定的属性                  -->
+        总成绩(监听器)<input type="text" v-model="jiantinzongfen"><br />
           </div>
       
     <script src="./node_modules/vue/dist/vue.js"></script>
@@ -20,7 +23,7 @@
             data: {
                 yuwen: 80,
                 shuxue: 91,
-                total:0
+                jiantinzongfen:0  //通过监听器计算出来的总得分
             },
 
             methods: {
@@ -52,10 +55,30 @@
                         this.shuxue=avg  //this千万不能忘记 很重要！
                     }
                   }
+            },
+         
+          //监听器 
+         watch:{
+               shuxue:function(newValue,oldValue){
+                                  //更新后的值 和 更新前的值
+                console.log('监听到数学更新了')
+                this.jiantinzongfen= (newValue-0)+(this.yuwen-0)
+               }
+            },
+        })
+             //监听器方法二 ：利用VM实例进行调用
+             // 第一个参数是监听的参数 当他发生改变就执行后面的函数
+        vm.$watch('yuwen',function(newValue){
+            console.log('监听到英语更新了')
+            this.jiantinzongfen= (newValue-0)+(this.shuxue-0)
 
-
-            }
-           
+        })
+           //监听总得分
+        vm.$watch('jiantinzongfen',function(newValue){
+            console.log('监听到总得分更新了')
+            var avg=(newValue)/2  //多了一个s 所以出来NAN 粗心大意
+                this.yuwen =avg
+                this.shuxue=avg  //this千万不能忘记 很重要！
         })
     </script>
 </body>
