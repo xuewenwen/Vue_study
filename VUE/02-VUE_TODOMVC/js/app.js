@@ -23,7 +23,8 @@
 		 el:'#todoapp',
 		 data:{
         //    title:'Hello!ToDoMvc!'
-              items:items  //items 等价于  items:items  前者是简写，key和value一样就可以写一个
+			  items:items,//items 等价于  items:items  前者是简写，key和value一样就可以写一个
+			  currentItem:null //表示点击的那个任务项
 		 },
 
 		 methods: {
@@ -44,7 +45,8 @@
 					{
 						   id:id,               //主键id
 						   content:content,   //输入的内容
-						   completed:false     //是否完成
+						   completed:false ,    //是否完成
+						   
 					}
 				 )
 				 event.target.value=''
@@ -55,7 +57,38 @@
 			 close(index){
                 this.items.splice(index,1)//移除一条数据
 
-			 }
+			 },
+			//  removecomp(){
+			//      this.items.filter((item)=>{
+            //        return !item.completed
+
+			// 	 })
+			//  }
+			removecomp(){
+				     this.items = this.items.filter((item)=> !item.completed)
+				  },
+
+			toEdit(i){
+			  
+				console.log(i)
+				this.currentItem = i
+
+			},
+			cancelEdit(){
+				//当item为空 editing样式就不起作用了
+				this.currentItem = null 
+			},
+
+			finishEdit(i,index,event){
+				//1.获取输入框的值 2.判断是否为空 为空 删除任务项 3.不为空  添加到任务项 4.移除.editing的样式 退出样式
+			   const content = event.target.value.trim()
+			   if(!content){
+				   this.close(index)
+				   return
+			   }
+			   i.content = content
+			   this.currentItem = null
+			}
 		 },
 
 		 computed: {
@@ -73,7 +106,7 @@
 								item.completed = newStatus
 							})
 						},
-
+                
 			   },
 
                 remaining(){

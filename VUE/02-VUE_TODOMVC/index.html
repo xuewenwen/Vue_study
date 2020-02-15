@@ -30,13 +30,13 @@
 						<!-- These are here just to show the structure of the list items -->
 						<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
 						<!-- 当length的长度为0时候为false 不显示元素 -->
-						<li v-for=" (i,index) in items" :class="{completed:i.completed}">
+						<li v-for=" (i,index) in items" :class="{completed:i.completed ,editing:i===currentItem} " >
 							<div class="view">
 								<input class="toggle" type="checkbox" v-model="i.completed">
-								<label>{{i.content}}</label>
+								<label @dblclick="toEdit(i)">{{i.content}}</label>
 								<button @click="close(index)" class="destroy" :value="i.id" ></button>
 							</div>
-							<input class="edit" value="Create a TodoMVC template">
+							<input @keyup.esc="cancelEdit" @keyup.enter="finishEdit(i,index,$event)" @blur="finishEdit(i,index,$event)" class="edit" :value="i.content">
 						</li>
 					</ul>
 				</section>
@@ -57,7 +57,7 @@
 						</li>
 					</ul>
 					<!-- Hidden if no completed items are left ↓ -->
-					<button class="clear-completed">Clear completed</button>
+					<button v-show="items.length > remaining" @click="removecomp" class="clear-completed">Clear completed</button>
 				</footer>
 		    </templete>
 		     <!-- 使用整体判断可以避免多次引用在标签  -->
