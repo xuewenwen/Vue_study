@@ -1,22 +1,33 @@
 (function (Vue) {//表示依赖了全局的VUE
 	// Your starting point. Enjoy the ride!
 	//const 表示申明的变量是不可变的，ES6
+	const STORAGE_KEY='items_vue.js'
+	const itemStorage = {
+		//获取数据
+		fetch:function(){
+			     //获取出来的是json字符串，通过parse将字符串转换成数组对象
+                 return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]' )
+		},
+		save:function(items){
+                 localStorage.setItem(STORAGE_KEY,JSON.stringify(items))
+		}
+	}
 	const items = [
-		{
-			id: 1,               //主键id
-			content: 'vue.js',   //输入的内容
-			completed: false     //是否完成
-		},
-		{
-			id: 2,               //主键id
-			content: 'java',   //输入的内容
-			completed: false     //是否完成
-		},
-		{
-			id: 3,               //主键id
-			content: 'python',   //输入的内容
-			completed: false     //是否完成
-		},
+		// {
+		// 	id: 1,               //主键id
+		// 	content: 'vue.js',   //输入的内容
+		// 	completed: false     //是否完成
+		// },
+		// {
+		// 	id: 2,               //主键id
+		// 	content: 'java',   //输入的内容
+		// 	completed: false     //是否完成
+		// },
+		// {
+		// 	id: 3,               //主键id
+		// 	content: 'python',   //输入的内容
+		// 	completed: false     //是否完成
+		// },
 
 	]
 	//全局定义自定义指令
@@ -32,7 +43,7 @@
 			el: '#todoapp',
 			data: {
 				//    title:'Hello!ToDoMvc!'
-				items: items,//items 等价于  items:items  前者是简写，key和value一样就可以写一个
+				items: itemStorage.fetch(),//items 等价于  items:items  前者是简写，key和value一样就可以写一个
 				currentItem: null,//表示点击的那个任务项
 				filterStatus: 'all',
 				
@@ -49,6 +60,22 @@
 			// 		},
 			// 	}
 			// },
+			//定义监听器
+			watch:{
+            //  items:function(newValue,old){
+			// 	 console.log('watch',newValue)
+			//使用deep 进行深度监听 可以监听输入框内的文字发生改变 也可以监听到
+			  items:{
+				  deep:true,//深度监听对象中属性的变化
+			      handler:function(newItems,old){
+				  //将数据保存在本地
+				  itemStorage.save(newItems)
+				  
+			   }
+			}
+
+			 },
+			
 
 			methods: {
 				add(event)// add:function() ES6写法没有function
@@ -173,6 +200,9 @@
 		//状态改变把HASH值赋值给这个变量
 		app.filterStatus = hash
 		console.log(app.filterStatus)
-		}
+		},
+	   // 第一次访问
+	   window.onhashchange()
 
 })(Vue);
+ 
