@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>测试一个参数</h1>
+       <p>{{content|zhanghua}}</p>
+        <input type="text" :value="content|zhanghua">
+        <h1>测试多个参数</h1>
+        <p>{{java | add(vue,python)}}</p>
+        <input type="text" :value="java | add(vue,python)">
+    </div>
+    <script>
+        //全局过滤器
+        // Vue.filter('zhanghua',function(value){
+        //     if(!value){return ''}
+        //     return value.toString().toUpperCase().replace('TMD','***').replace('SB','***')
+        // })
+
+        new Vue({
+            el:'#app',
+            data:{
+                content:'小伙子，TMD就是个SB',
+                java:90,
+                vue:89,
+                python:90
+            },
+            filters:{
+                //定义局部过滤器
+                zhanghua(value){
+                    if(!value){return ''}
+                    return value.toString().toUpperCase().replace('TMD','***').replace('SB','***')
+                },
+                add(java,vue,python){
+                    return java + vue +python
+                }
+
+            }
+        })
+
+
+    </script>
+</body>
+</html>
