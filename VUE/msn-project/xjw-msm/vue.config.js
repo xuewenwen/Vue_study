@@ -4,6 +4,15 @@ module.exports = {
     host: "localhost", //主机名， 127.0.0.1， 真机 0.0.0.0
     https: false, //协议
     open: true, //启动服务时自动打开浏览器访问
+    proxy:{
+        '/dev-api':{
+            target:'http://localhost:8001',
+            changeOrigin:true,
+            pathRewrite:{
+                '^/dev-api':'',
+            }
+        }
+    }
     },
     lintOnSave: false, // 关闭格式检查
     productionSourceMap: false, // 打包时不会生成 .map 文件，加快打包速度

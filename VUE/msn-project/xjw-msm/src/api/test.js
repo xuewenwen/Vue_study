@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+const BASE_URL = '/dev-api'
 // request.get('/db.json').then(response =>{
 //     console.log(response.data)
 // })
@@ -8,7 +8,7 @@ import request from '@/utils/request'
 //以对象配置的方式请求
 request({
     methods: 'get',
-    url:'/db.json'
+    url: BASE_URL + '/db.json'
 
 }).then(response =>{
     console.log('get2',response.data)
@@ -17,7 +17,7 @@ request({
 
 request({
     methods: 'post',
-    url:'/db.json'
+    url:'http://localhost:8001/db.json'
 
 })
 
@@ -25,7 +25,7 @@ export default{
     getList(){
      const req =   request({
             methods: 'post',
-            url:'/db.json'
+            url: BASE_URL + '/db.json'
         })
         return req
     }

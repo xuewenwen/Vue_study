@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const request = axios.create({
    // baseURL:'/dev-api', 基础路径
-   baseURL:'/',
+    baseURL:'/',
     timeout:5000 //请求超时5000ms
 })
 
