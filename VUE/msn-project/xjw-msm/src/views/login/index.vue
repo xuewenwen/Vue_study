@@ -54,7 +54,7 @@ export default {
                    localStorage.setItem('xjw-msn-user',JSON.stringify(respUser.data))
                    localStorage.setItem('xjw-msn-token',JSON.stringify(respUser.data.token))
                    //前往首页
-                      this.$router.push('/')}
+                      this.$router.push('/main')}
                       else{
                           this.$message({
                             message:respUser.message,
