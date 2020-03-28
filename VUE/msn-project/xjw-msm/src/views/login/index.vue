@@ -52,7 +52,7 @@ export default {
                  if(respUser.flag){ console.log('userInfo',respUser.data)
                    //1.保存token
                    localStorage.setItem('xjw-msn-user',JSON.stringify(respUser.data))
-                   localStorage.setItem('xjw-msn-token',JSON.stringify(respUser.data.token))
+                   localStorage.setItem('xjw-msn-token',JSON.stringify(resp.data.token))
                    //前往首页
                       this.$router.push('/main')}
                       else{
@@ -61,9 +61,8 @@ export default {
                             type:'warning'
                           })
                       }
-                  
+                      
                  })
-              
 
                }
              })
